@@ -34,10 +34,17 @@ async function run() {
             res.send(result);
         });
 
-        // get single craft data
+        // get single craft data by craft id;
         app.get('/single-craft-item/:id', async (req, res) => {
             const id = req.params.id;
             const result = await craftItems.findOne({ _id: new ObjectId(id) });
+            res.send(result);
+        })
+
+        // get craft data by craft category
+        app.get('/craft-category-data', async (req, res) => {
+            const query = req.query.category;
+            const result = await craftItems.find({ categoryName: query }).toArray();
             res.send(result);
         })
 
